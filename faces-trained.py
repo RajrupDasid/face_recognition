@@ -26,7 +26,10 @@ for root,dirs,files in os.walk(image_dir):
 #            y_labels.append(label)
  #           x_train.append(path)
             pil_image=Image.open(path).convert("L") #L convert into agray scale
-            image_array=np.array(pil_image,"uint8")
+            # resizing images for bertter accuracy
+            size=(550,550)
+            final_image=pil_image.resize(size,Image.Resampling.LANCZOS)
+            image_array=np.array(final_image,"uint8")
             faces=face_cascade.detectMultiScale(image_array,scaleFactor=1.5,minNeighbors=5)
             for(x,y,w,h) in faces:
                 roi=image_array[y:y+h,x:x+w]
