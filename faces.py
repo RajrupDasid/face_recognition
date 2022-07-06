@@ -16,7 +16,12 @@ while True:
         roi_color=frame[y:y+h, x:x+w] # regeion of interest for color scale
         img_item="people-face.png"
         cv2.imwrite(img_item,roi_gray)
+        # square up around faces 
         color=(255,0,0) #BGR way for histogram calculation and meshing
+        stroke=2
+        end_cord_x= x + w
+        end_cord_y= y + h
+        cv2.rectangle(frame,(x,y),(end_cord_x,end_cord_y),color,stroke)
     #display these on resulting frame color scale
     cv2.imshow('frame',frame)
     if cv2.waitKey(20) & 0xFF==ord('q'):
